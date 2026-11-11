@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="es">
+<title>Test RITE IT 2 e IT 3</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#1f5f8b">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="description" content="Las 75 preguntas de los tests 12, 13 y 14 del RITE (IT 2 Montaje e IT 3 Mantenimiento) con la respuesta y su apartado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: una columna estrecha como una hoja de mantenimiento; cabecera fija con el progreso, tarjetas solo para la pregunta. */
+:root {
+  --bg: #f3f5f7;
+  --surface: #ffffff;
+  --fg: #17212b;
+  --muted: #5b6875;
+  --line: #d8dee4;
+  --accent: #1f5f8b;
+  --accent-soft: #e3eef6;
+  --ok: #1d7a46;
+  --ok-soft: #e2f3e8;
+  --bad: #b3261e;
+  --bad-soft: #fbe6e4;
+  --warn: #8a5a00;
+  --warn-soft: #fbf0d6;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11171d; --surface: #1a222a; --fg: #e6ebf0; --muted: #9aa7b3; --line: #2c3742;
+    --accent: #6fb0de; --accent-soft: #1d3446; --ok: #5cc98a; --ok-soft: #173826;
+    --bad: #f08a80; --bad-soft: #3e1d1a; --warn: #e8b85a; --warn-soft: #3a2e14;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11171d; --surface: #1a222a; --fg: #e6ebf0; --muted: #9aa7b3; --line: #2c3742;
+  --accent: #6fb0de; --accent-soft: #1d3446; --ok: #5cc98a; --ok-soft: #173826;
+  --bad: #f08a80; --bad-soft: #3e1d1a; --warn: #e8b85a; --warn-soft: #3a2e14;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 40px;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+header.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg);
+  padding-block: 14px 10px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 12px;
+}
+header.top h1 { font-size: 17px; margin: 0; font-weight: 700; letter-spacing: -0.01em; flex: 1; min-width: 0; }
+header.top h1 small { display: block; font-weight: 500; font-size: 13px; color: var(--muted); }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.btn {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 12px 16px;
+  font-weight: 600; text-align: left;
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); text-align: center; }
+.btn.ghost { background: transparent; }
+.btn.small { padding: 8px 12px; font-size: 14px; }
+.btn:disabled { opacity: .45; cursor: default; }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h2 { font-size: 20px; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+
+/* Inicio */
+.hero { display: flex; flex-direction: column; gap: 8px; padding-top: 8px; }
+.hero h2 { font-size: 26px; letter-spacing: -0.02em; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 2px; }
+.stat b { font-family: var(--font-mono); font-size: 22px; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 13px; color: var(--muted); }
+.menu { display: flex; flex-direction: column; gap: 10px; }
+.mode { display: grid; grid-template-columns: auto 1fr auto; gap: 4px 14px; align-items: center; }
+.mode .code { font-family: var(--font-mono); font-size: 13px; background: var(--accent-soft); color: var(--accent); border-radius: 6px; padding: 4px 8px; grid-row: span 2; align-self: center; min-width: 54px; text-align: center; }
+.mode .name { font-weight: 600; }
+.mode .sub { font-size: 14px; color: var(--muted); font-weight: 400; grid-column: 2; }
+.mode .count { grid-row: span 2; grid-column: 3; font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.bar { height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--ok); }
+.section-title { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+
+/* Pregunta */
+.qcard { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 16px; }
+.qhead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.qnum { font-family: var(--font-mono); font-weight: 600; background: var(--fg); color: var(--surface); border-radius: 6px; padding: 2px 8px; font-size: 14px; }
+.qtext { font-size: 18px; font-weight: 600; line-height: 1.4; text-wrap: pretty; }
+.opts { display: flex; flex-direction: column; gap: 8px; }
+.opt { display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; padding: 12px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--surface); text-align: left; }
+.opt .l { font-family: var(--font-mono); font-weight: 600; color: var(--muted); }
+.opt.sel { border-color: var(--accent); background: var(--accent-soft); }
+.opt.right { border-color: var(--ok); background: var(--ok-soft); }
+.opt.right .l { color: var(--ok); }
+.opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.opt.wrong .l { color: var(--bad); }
+.opt:disabled { cursor: default; }
+.verdict { font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.verdict.ok { color: var(--ok); }
+.verdict.ko { color: var(--bad); }
+.explain { border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; display: flex; flex-direction: column; gap: 6px; }
+.ref { font-family: var(--font-mono); font-size: 13px; color: var(--accent); font-weight: 600; }
+.note { background: var(--warn-soft); color: var(--fg); border-radius: 8px; padding: 10px 12px; font-size: 14px; }
+.note b { color: var(--warn); }
+.nav { display: flex; gap: 10px; }
+.nav .btn { flex: 1; text-align: center; }
+.progress { display: flex; flex-direction: column; gap: 6px; }
+.progress .row { display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); }
+
+/* Resultado */
+.score { font-family: var(--font-mono); font-size: 48px; font-weight: 600; line-height: 1; }
+.fails { display: flex; flex-direction: column; gap: 10px; }
+.fail { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.fail .ans { font-size: 14px; }
+.fail .ans .ok { color: var(--ok); font-weight: 600; }
+.fail .ans .ko { color: var(--bad); font-weight: 600; text-decoration: line-through; }
+
+/* Chuleta */
+.sheet { display: flex; flex-direction: column; gap: 18px; }
+.sheet h3 { font-size: 16px; margin: 0 0 8px; }
+.tablebox { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+td.p { font-family: var(--font-mono); font-weight: 600; white-space: nowrap; color: var(--accent); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: var(--font-mono); font-size: 13px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; }
+.keyfacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
+.fact { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 4px; }
+.fact b { font-family: var(--font-mono); font-size: 20px; color: var(--accent); }
+.fact span { font-size: 14px; }
+.confirm { background: var(--warn-soft); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+@media (prefers-reduced-motion: no-preference) { .opt { transition: background-color .12s, border-color .12s; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1 id="title">Test RITE<small id="subtitle">IT 2 Montaje · IT 3 Mantenimiento</small></h1>
+    <button class="btn small ghost" id="home-btn" hidden>Inicio</button>
+  </header>
+  <main id="app" class="wrap"></main>
+</div>
+
+<script>
+// Preguntas de los tests 12, 13 y 14 (Cengage Paraninfo). Las respuestas se han sacado del texto del RITE
+// consolidado (BOE, IT 2 e IT 3). Donde el libro sigue el RITE de 2007 y el texto actual cambia, va una nota.
+const OLD70 = "El libro sigue el RITE de 2007, que tenía una columna para instalaciones de hasta 70 kW con «t» (una vez por temporada) en esta operación. En el RITE actual, las de 70 kW o menos sin manual van por la tabla 3.1 según el aparato (por ejemplo, caldera mural de gas: anual, o cada 2 años en vivienda), que sigue siendo «una vez por temporada» en uso no residencial.";
+
+const Q = [
+// ---------- TEST 12 · IT 2 Montaje ----------
+{id:"12.1",t:12,q:"Uno de los objetivos de las pruebas de libre dilatación es comprobar visualmente que no hayan tenido lugar deformaciones apreciables en ningún elemento o tramo de tubería y el otro:",o:["Comprobar que la instalación se enfría rápidamente.","Comprobar si funciona correctamente el sistema de purga automático.","Comprobar que el sistema de expansión funciona correctamente.","Comprobar que la presión de la tubería es la misma."],a:[2],ref:"IT 2.2.4.2",e:"Durante el enfriamiento y al final se comprueba que no haya deformaciones y que el sistema de expansión haya funcionado correctamente."},
+{id:"12.2",t:12,q:"¿Quién deberá presentar un informe final de las pruebas efectuadas que contenga las condiciones de funcionamiento de los equipos y aparatos?",o:["Empresa instaladora.","Empresa de mantenimiento.","Organismo de Control Autorizado.","Titular de la instalación."],a:[0],ref:"IT 2.3.1.2",e:"La empresa instaladora presenta el informe final de las pruebas con las condiciones de funcionamiento de los equipos."},
+{id:"12.3",t:12,q:"¿Durante cuánto tiempo al menos se realizará una prueba de seguridad en los subsistemas solares térmicos?",o:["Una hora.","Dos horas.","Cuatro horas.","Una hora con la bomba de circulación en marcha."],a:[0],ref:"IT 2.2.7.3",e:"Prueba en estancamiento: circuito primario lleno y bomba PARADA, con radiación superior al 80 % de la máxima, durante al menos una hora. La d) falla porque la bomba va parada."},
+{id:"12.4",t:12,q:"¿Qué presión mínima de prueba se realizará para circuitos de agua caliente sanitaria?",o:["1 bar.","2 bares.","6 bares.","10 bares."],a:[2],ref:"IT 2.2.2.4.1",e:"ACS: dos veces la presión máxima efectiva de trabajo, con un mínimo de 6 bar. (Agua refrigerada o caliente hasta 100 °C: 1,5 veces, también mínimo 6 bar.)"},
+{id:"12.5",t:12,q:"¿Mediante qué se ajustarán al caudal de diseño las unidades terminales de impulsión y retorno en los sistemas de distribución de aire?",o:["El control de la potencia de los compresores.","Sus dispositivos de regulación.","El control de potencia de los quemadores.","El control del sistema de telegestión."],a:[1],ref:"IT 2.3.2.3",e:"Las unidades terminales de impulsión y retorno se ajustan al caudal de diseño mediante sus dispositivos de regulación."},
+{id:"12.6",t:12,q:"En las pruebas de ajuste y equilibrado en los sistemas de distribución de agua, ¿deben conocerse las curvas características de cada bomba?",o:["Sí.","No."],a:[0],ref:"IT 2.3.3.3",e:"Cada bomba, de la que se debe conocer la curva característica, se ajusta al caudal de diseño."},
+{id:"12.7",t:12,q:"El RITE permite pruebas preliminares de estanquidad de redes de tuberías para detectar faltas de continuidad de la red, esta prueba se efectuará:",o:["A alta presión: 10 bares o más.","A baja presión con aire.","A baja presión con el mismo fluido transportado.","A baja presión con agua a 50 °C."],a:[2],ref:"IT 2.2.2.3.1",e:"La prueba preliminar es a baja presión, con el mismo fluido transportado o, generalmente, agua a la presión de llenado."},
+{id:"12.8",t:12,q:"¿Qué haremos con los aparatos o equipos que no soporten las presiones de prueba de resistencia mecánica?",o:["Quitarlos de la instalación.","Venderlos o intentarlos meter en otra instalación.","Incluirlos en la prueba.","Excluirlos de la prueba."],a:[3],ref:"IT 2.2.2.4.3",e:"Los equipos, aparatos y accesorios que no soporten esas presiones quedan excluidos de la prueba."},
+{id:"12.9",t:12,q:"¿Quién realizará el equilibrado de los sistemas de distribución y difusión de aire?",o:["La empresa instaladora.","La empresa instaladora.","Titular de la instalación.","Inspección de zona de Industria."],a:[0,1],ref:"IT 2.3.2",e:"La empresa instaladora realiza y documenta el ajuste y equilibrado de los sistemas de aire.",note:"En el libro las opciones a) y b) están repetidas (errata). Las dos valen."},
+{id:"12.10",t:12,q:"¿Quién realizará el procedimiento de ajuste y equilibrado de los sistemas de distribución de agua?",o:["El titular de la instalación.","Empresa mantenedora.","Empresa instaladora.","Ninguna de las anteriores es la correcta."],a:[2],ref:"IT 2.3.3",e:"La empresa instaladora realiza y documenta el ajuste y equilibrado de los sistemas de agua."},
+{id:"12.11",t:12,q:"En cuanto al montaje de las redes de tuberías y antes de quedar ocultas por obras de albañilería, éstas deberán:",o:["Ser probadas hidrostáticamente, a fin de probar su estanquidad.","Ser instalados manómetros fijos.","Ser pintadas conforme al código de colores.","Ser probada su temperatura sólo en tuberías de retorno."],a:[0],ref:"IT 2.2.2.1.1",e:"Todas las redes de fluidos portadores se prueban hidrostáticamente antes de quedar ocultas por albañilería, relleno o aislante."},
+{id:"12.12",t:12,q:"La limpieza interior de las redes de conductos de aire se efectuará:",o:["Antes de empezar el montaje.","Una vez se haya completado el montaje de la red.","Después de conectar las unidades terminales.","Una vez se haya facturado la instalación."],a:[1],ref:"IT 2.2.5.1.1",e:"Una vez completado el montaje de la red y de la unidad de tratamiento de aire, pero ANTES de conectar las unidades terminales."},
+{id:"12.13",t:12,q:"Para redes de tuberías destinadas a la distribución de agua para usos sanitarios, ¿se permiten detergentes para su limpieza interior?",o:["Sí.","No.","Sólo detergentes con el marcado CE.","Ninguna de las anteriores es correcta."],a:[1],ref:"IT 2.2.2.2.4",e:"El uso de detergentes no está permitido en redes de agua para usos sanitarios."},
+{id:"12.14",t:12,q:"Para los intercambiadores de calor, ¿deberán ajustarse los caudales de diseño que lo atraviesan en el ajuste y equilibrado de la instalación?",o:["Sí.","No."],a:[0],ref:"IT 2.3.3.7",e:"De cada intercambiador se conocen potencia, temperatura y caudales de diseño, y se ajustan los caudales que lo atraviesan."},
+{id:"12.15",t:12,q:"Como paso previo al ajuste de los generadores de calor y frío a las temperaturas de diseño, en sistemas de distribución de agua, deberán ajustarse al caudal de diseño:",o:["Los difusores.","Válvulas de control diferencial.","Los ventiladores.","Las bombas."],a:[3],ref:"IT 2.3.3.3",e:"Cada bomba se ajusta al caudal de diseño como paso previo al ajuste de los generadores de calor y frío."},
+{id:"12.16",t:12,q:"En las pruebas de ajuste y equilibrado de la instalación, ¿deben conocerse en intercambiadores de calor la potencia, temperatura y caudales de diseño?",o:["Sí.","No."],a:[0],ref:"IT 2.3.3.7",e:"Sí: de cada intercambiador se deben conocer la potencia, la temperatura y los caudales de diseño."},
+{id:"12.17",t:12,q:"En las pruebas de puesta en servicio de un generador, ¿deberán medirse los rendimientos del conjunto generador-caldera que aporten la certificación CE?",o:["Sí.","No."],a:[1],ref:"IT 2.2.1.2",e:"Lo que se mide es el rendimiento del conjunto caldera-quemador. El RITE de 2007, que es el que sigue el libro, exceptuaba los generadores con certificación CE, así que la respuesta del test es «No».",note:"El texto actual ya no trae esa excepción: dice solo «se medirán los rendimientos de los conjuntos caldera-quemador». Si en el examen preguntan con esta frase, contesta «No»."},
+{id:"12.18",t:12,q:"¿Debe conocerse el caudal nominal del aire impulsado y extraído para cada local en sistemas de distribución de aire?",o:["Sí.","No."],a:[0],ref:"IT 2.3.2.4",e:"Para cada local se debe conocer el caudal nominal de aire impulsado y extraído, y el número, tipo y ubicación de las unidades terminales."},
+{id:"12.19",t:12,q:"En la documentación final de la instalación, ¿se tomará nota de los datos de funcionamiento de los equipos y aparatos de la instalación?",o:["Sí.","No."],a:[0],ref:"IT 2.2.1.1",e:"Se toma nota de los datos de funcionamiento (nominales y reales), que pasan a la documentación final."},
+{id:"12.20",t:12,q:"¿Para qué se limpian internamente las redes de tuberías de agua antes del llenado definitivo?",o:["Para que quede bonito.","Para la circulación correcta del fluido portador.","Para no afectar a las medidas de presión.","Para eliminar los residuos procedentes del montaje."],a:[3],ref:"IT 2.2.2.2.1",e:"Se limpian internamente para eliminar los residuos procedentes del montaje."},
+{id:"12.21",t:12,q:"¿Qué se comprobará en los fluidos anticongelantes de los circuitos expuestos a heladas?",o:["Que cumple con los requisitos especificados en el proyecto o memoria técnica.","Que sean de fabricación nacional.","Que tengan además una función oxidante.","Ninguna de las anteriores es la correcta."],a:[0],ref:"IT 2.3.3.2",e:"Se comprueba que el anticongelante cumple los requisitos del proyecto o memoria técnica."},
+{id:"12.22",t:12,q:"¿Qué presión mínima de prueba se realizará para circuitos primarios de instalaciones de energía solar?",o:["1 bar.","2 bares.","3 bares.","10 bares."],a:[2],ref:"IT 2.2.2.4.2",e:"Primario solar: 1,5 veces la presión máxima de trabajo del circuito primario, con un mínimo de 3 bar."},
+{id:"12.23",t:12,q:"En los sistemas de distribución de agua en los dispositivos de equilibrado de los ramales, ¿deberán ser equilibrados al caudal de diseño?",o:["Sí.","No.","Únicamente si se equilibran los sistemas de aire.","Sí, pero sólo si lo indica hacer el titular."],a:[0],ref:"IT 2.3.3.4",e:"Las unidades terminales, o los dispositivos de equilibrado de los ramales, se equilibran al caudal de diseño."},
+{id:"12.24",t:12,q:"Las instalaciones térmicas deben ser ajustadas a los valores de las prestaciones que figuren:",o:["En el certificado final de la obra.","En el Libro de mantenimiento.","En la Licencia municipal.","En el proyecto o memoria técnica."],a:[3],ref:"IT 2.3.1.1",e:"Se ajustan a las prestaciones del proyecto o memoria técnica, dentro de los márgenes de tolerancia."},
+{id:"12.25",t:12,q:"¿Deben conocerse el caudal nominal y la presión de cada circuito hidráulico en sistemas de distribución de agua?",o:["Sí.","No."],a:[0],ref:"IT 2.3.3.1",e:"De cada circuito hidráulico se deben conocer el caudal nominal y la presión, y los caudales de ramales y unidades terminales."},
+
+// ---------- TEST 13 · IT 3 Mantenimiento ----------
+{id:"13.1",t:13,q:"¿Se deben hacer más revisiones generales de calderas de gas que de gasóleo?",o:["Sí.","No."],a:[1],ref:"IT 3.3, tabla 3.3 (12 y 13)",e:"Revisión general de calderas de gas: t. Revisión general de calderas de gasóleo: t. Las dos, una vez por temporada."},
+{id:"13.2",t:13,q:"El principal objetivo de las instrucciones de seguridad será el de reducir a límites aceptables el riesgo de sufrir daños a:",o:["Usuarios.","Operarios.","Inspector del Organismo Territorial Competente.","Usuarios y operarios."],a:[3],ref:"IT 3.5.1",e:"Reducir a límites aceptables el riesgo de que los usuarios u operarios sufran daños inmediatos durante el uso de la instalación."},
+{id:"13.3",t:13,q:"La comprobación y limpieza, si procede, del circuito de humos de calderas de 50 kW será:",o:["Una vez al mes.","Una vez por temporada.","Dos veces por temporada.","Una vez cada dos años."],a:[1],ref:"IT 3.3 (70 kW o menos)",e:"Hasta 70 kW: una vez por temporada. (Más de 70 kW: 2 t.)",note:OLD70},
+{id:"13.4",t:13,q:"En cuanto al mantenimiento, los aparatos de recuperación de calor de instalaciones de menos de 70 kW, deberán revisarse y limpiarse:",o:["Una vez al mes.","Una vez por temporada.","Dos veces al mes.","Dos veces al año."],a:[1],ref:"IT 3.3 (70 kW o menos)",e:"Hasta 70 kW: una vez por temporada. (Más de 70 kW: 2 t.)",note:OLD70},
+{id:"13.5",t:13,q:"El Programa de mantenimiento preventivo contenido en este Reglamento será para instalaciones de potencia térmica nominal:",o:["Menor que 70 kW.","Menores o iguales a 70 kW.","Mayores que 70 kW.","Todas las instalaciones."],a:[3],ref:"IT 3.2 a) e IT 3.3",e:"Toda instalación térmica se mantiene con un programa de mantenimiento preventivo; la tabla 3.1 va desde calentadores de 24,4 kW hasta más de 70 kW."},
+{id:"13.6",t:13,q:"Una de las exigencias que deben cumplir las instalaciones térmicas es:",o:["Máxima eficiencia energética.","Mínima eficiencia energética.","Que sea barata la instalación.","Que los equipos y aparatos instalados sean españoles."],a:[0],ref:"IT 3.1",e:"Que su funcionamiento, durante su vida útil, se haga con la máxima eficiencia energética, con seguridad, durabilidad y protección del medio ambiente."},
+{id:"13.7",t:13,q:"¿Quién asesorará al titular de la instalación en la recomendación de modificaciones que redunden en una mayor eficiencia energética?",o:["La empresa instaladora.","La empresa mantenedora.","Organismo de Control Autorizado.","Técnico titulado competente."],a:[1],ref:"IT 3.4.4.1",e:"La empresa mantenedora asesora al titular recomendando mejoras que redunden en una mayor eficiencia energética."},
+{id:"13.8",t:13,q:"En un generador de calor de potencia térmica nominal instalada de 500 kW la empresa mantenedora realizará la medición de la temperatura ambiente de la sala de máquinas cada:",o:["Mes.","Dos meses.","Tres meses.","Dos años."],a:[2],ref:"IT 3.4.1, tabla 3.2",e:"Medidas de generadores de calor: de 20 a 70 kW cada 2 años (2a); de 70 a 1.000 kW cada 3 meses (3m); más de 1.000 kW cada mes (m). 500 kW → 3m."},
+{id:"13.9",t:13,q:"La revisión del vaso de expansión en instalaciones de potencia térmica instalada igual o menor de 70 kW será:",o:["Una vez a la semana.","Una vez al mes.","Una vez por temporada.","Una vez al año."],a:[2],ref:"IT 3.3 (70 kW o menos)",e:"Hasta 70 kW: una vez por temporada. (Más de 70 kW: m, una vez al mes.)",note:OLD70},
+{id:"13.10",t:13,q:"En instalaciones de biomasa mantenidas de cualquier potencia deberán revisarse los elementos de seguridad:",o:["Una vez al mes.","Dos veces al mes.","Una vez cada tres meses.","Dos veces por temporada."],a:[0],ref:"IT 3.3, tabla 3.3 (36)",e:"Revisión de los elementos de seguridad en instalaciones de biomasa: m (una vez al mes)."},
+{id:"13.11",t:13,q:"La limpieza de las evaporadoras se realizará para una máquina de 20.000 Frig/h.",o:["Una vez al mes.","Una vez por temporada.","Dos veces por temporada.","Cuando lo pida el titular y además no sea festivo."],a:[1],ref:"IT 3.3, tabla 3.3 (1)",e:"20.000 frig/h son unos 23 kW. La limpieza de los evaporadores es t (una vez por temporada) con cualquier potencia."},
+{id:"13.12",t:13,q:"¿Cada cuánto se realizará la limpieza del quemador en el mantenimiento preventivo en una caldera de 40 kW?",o:["Una vez a la semana.","Una vez al mes.","Una vez por temporada.","Dos veces por temporada."],a:[2],ref:"IT 3.3 (70 kW o menos)",e:"Hasta 70 kW: una vez por temporada. (Más de 70 kW: m.)",note:OLD70},
+{id:"13.13",t:13,q:"¿Cada cuánto tiempo se realizará la comprobación del estado de almacenamiento del biocombustible sólido?",o:["Nunca.","Una vez al mes.","Una vez al año.","Una vez a la semana."],a:[3],ref:"IT 3.3, tabla 3.3 (31)",e:"S*: una vez cada semana. La puede hacer el propio usuario, asesorado antes por el mantenedor."},
+{id:"13.14",t:13,q:"La comprobación y limpieza, si procede, del circuito de conductos y chimeneas de 70 kW será:",o:["Una vez al mes.","Una vez por temporada.","Dos veces por temporada.","Una vez cada dos años."],a:[1],ref:"IT 3.3 (70 kW o menos)",e:"70 kW justos todavía es «hasta 70 kW»: una vez por temporada. (Más de 70 kW: 2 t.)",note:OLD70},
+{id:"13.15",t:13,q:"La limpieza de los condensadores deberá realizarse:",o:["Una vez a la semana.","Una vez al mes.","Una vez por temporada.","Dos veces por temporada."],a:[2],ref:"IT 3.3, tabla 3.3 (2)",e:"Limpieza de los condensadores: t (una vez por temporada)."},
+{id:"13.16",t:13,q:"¿Las instrucciones de seguridad deben estar claramente visibles?",o:["Antes del acceso del edificio.","Antes del acceso a la sala de máquinas.","Antes del acceso y en el interior de la sala de máquinas.","Debe tenerlas únicamente la empresa suministradora de energía."],a:[2],ref:"IT 3.5.2",e:"En más de 70 kW: claramente visibles antes del acceso y en el interior de salas de máquinas, locales técnicos y junto a aparatos y equipos."},
+{id:"13.17",t:13,q:"Deberá realizarse un control visual de la caldera de biomasa con la periodicidad de:",o:["Una vez al mes.","Una vez por temporada.","Dos veces por temporada.","Ninguna de las anteriores es correcta."],a:[3],ref:"IT 3.3, tabla 3.3 (34)",e:"Control visual de la caldera de biomasa: S* (una vez cada semana). No está entre las opciones a), b) ni c)."},
+{id:"13.18",t:13,q:"La limpieza y retirada de cenizas en instalaciones de más de 70 kW de potencia de biocombustible sólido será:",o:["Una vez a la semana.","Una vez al mes.","Una vez por temporada.","Una vez al año."],a:[1],ref:"IT 3.3, tabla 3.3 (33)",e:"Limpieza y retirada de cenizas: m (una vez al mes)."},
+{id:"13.19",t:13,q:"La comprobación y limpieza, si procede, del circuito de humos de calderas de 400 kW será:",o:["Una vez al mes.","Una vez por temporada.","Dos veces por temporada.","Una vez cada dos años."],a:[2],ref:"IT 3.3, tabla 3.3 (5)",e:"Circuito de humos de calderas: 2 t (dos veces por temporada)."},
+{id:"13.20",t:13,q:"La revisión del vaso de expansión en instalaciones de potencia térmica instalada de más de 70 kW será:",o:["Una vez a la semana.","Una vez al mes.","Una vez por temporada.","Una vez al año."],a:[1],ref:"IT 3.3, tabla 3.3 (8)",e:"Revisión del vaso de expansión: m (una vez al mes)."},
+{id:"13.21",t:13,q:"La revisión y limpieza de los filtros de aire en instalaciones de potencia térmica instalada superior a 100 kW será:",o:["Una vez a la semana.","Una vez al mes.","Dos veces al mes.","Una vez por temporada."],a:[1],ref:"IT 3.3, tabla 3.3 (19)",e:"Revisión y limpieza de filtros de aire: m (una vez al mes)."},
+{id:"13.22",t:13,q:"¿La periodicidad en la revisión de aparatos de humectación y enfriamiento evaporativo depende de la potencia del aparato instalado?",o:["Sí.","No."],a:[0],ref:"IT 3.3",e:"Sí. Más de 70 kW: m (tabla 3.3, 21). Hasta 70 kW: otra periodicidad (por temporada en el libro; hoy, la de la tabla 3.1)."},
+{id:"13.23",t:13,q:"En una instalación térmica de 500 kW ¿cada cuánto tiempo se comprobará el material refractario si lo hubiese?",o:["Una vez al mes.","Una vez por temporada.","Dos veces por temporada.","Una vez cada cuatro años."],a:[2],ref:"IT 3.3, tabla 3.3 (10)",e:"Comprobación de material refractario: 2 t (dos veces por temporada)."},
+{id:"13.24",t:13,q:"La revisión general de las calderas de gasóleo se realizará conforme a la Instrucción Técnica de Mantenimiento con una periodicidad de:",o:["Una vez al mes.","Una vez por temporada.","Dos veces por temporada.","Una vez cada dos años."],a:[1],ref:"IT 3.3, tabla 3.3 (13)",e:"Revisión general de calderas de gasóleo: t (una vez por temporada)."},
+{id:"13.25",t:13,q:"En un generador de calor de potencia térmica nominal instalada de 24,4 kW, la medición del contenido de CO y CO₂ de los productos de la combustión se realizará con una periodicidad de:",o:["Una vez al mes.","Una vez cada tres meses.","Una vez al año.","Una vez cada dos años."],a:[3],ref:"IT 3.4.1, tabla 3.2",e:"24,4 kW está entre 20 y 70 kW: cada dos años (2a)."},
+
+// ---------- TEST 14 · IT 3 Mantenimiento ----------
+{id:"14.1",t:14,q:"La comprobación y limpieza si procede del circuito de conductos y chimeneas de más de 70 kW será:",o:["Una vez al mes.","Una vez por temporada.","Dos veces por temporada.","Una vez cada dos años."],a:[2],ref:"IT 3.3, tabla 3.3 (6)",e:"Conductos de humos y chimenea: 2 t (dos veces por temporada)."},
+{id:"14.2",t:14,q:"¿A qué harán referencia las instrucciones de seguridad en las salas de máquinas?",o:["Parada de los equipos antes de una intervención.","Nombre y teléfono del Inspector de zona del Organismo Territorial Competente.","Nombre y teléfono de la empresa mantenedora.","La calidad de materiales y equipos empleados."],a:[0],ref:"IT 3.5.2",e:"Entre otros: parada de los equipos antes de una intervención, desconexión de la corriente, advertencias, indicaciones de seguridad y cierre de válvulas antes de abrir un circuito."},
+{id:"14.3",t:14,q:"En instalaciones de potencia térmica mayor de 70 kW, el seguimiento del consumo de energía lo realizará la empresa mantenedora periódicamente y además esta información la conservará",o:["Un año.","Dos años.","Cinco años.","Cuatro años y remitirá copia a la empresa suministradora."],a:[2],ref:"IT 3.4.4.2",e:"La información se conserva al menos cinco años, se entrega al propietario y se incorpora al Libro del Edificio."},
+{id:"14.4",t:14,q:"La revisión de mantenimiento de bombas y ventiladores en potencias térmicas instaladas de más de 70 kW deberá hacerse:",o:["Una vez a la semana.","Una vez al mes.","Una vez por temporada.","Dos veces por temporada."],a:[1],ref:"IT 3.3, tabla 3.3 (27)",e:"Revisión de bombas y ventiladores: m (una vez al mes)."},
+{id:"14.5",t:14,q:"En una instalación de 100 kW de potencia térmica instalada, ¿cada cuánto tiempo se realizará la medición de la temperatura y presión de evaporación?",o:["Una vez a la semana.","Una vez al mes.","Una vez cada tres meses.","Una vez al año."],a:[2],ref:"IT 3.4.2, tabla 3.3",e:"Generadores de frío de 70 a 1.000 kW: cada tres meses (3m). Más de 1.000 kW: cada mes."},
+{id:"14.6",t:14,q:"La medida del tiro en la caja de humos de una caldera de 40 kW será:",o:["Cada año.","Cada dos años.","Cada cuatro años.","No es necesario hacer esta operación."],a:[1],ref:"IT 3.4.1, tabla 3.2",e:"Generadores de calor de 20 a 70 kW: cada dos años (2a)."},
+{id:"14.7",t:14,q:"La revisión de aparatos exclusivos para la producción de agua caliente sanitaria de potencia térmica nominal menor o igual a 24,4 kW se realizará:",o:["Cada mes.","Cada año.","Cada dos años.","Cada cuatro años."],a:[3],ref:"IT 3.3",e:"En el RITE de 2007 (el del libro): aparatos exclusivos de ACS de hasta 24,4 kW, cada 4 años (4a); de 24,4 a 70 kW, cada 2 años.",note:"El RITE actual (tabla 3.1) lo cambió: calentador de ACS a gas de hasta 24,4 kW, cada 5 años en vivienda y cada 2 años en otros usos; bomba de calor de ACS de hasta 12 kW, cada 4 años en vivienda. Con estas opciones, la respuesta del test es d)."},
+{id:"14.8",t:14,q:"La revisión y limpieza de filtros de agua se realizará en instalaciones de más de 70 kW de potencia térmica instalada:",o:["Una vez al mes.","Una vez por temporada.","Dos veces por temporada.","Una vez a la semana."],a:[2],ref:"IT 3.3, tabla 3.3 (18)",e:"Revisión y limpieza de filtros de agua: 2 t (dos veces por temporada)."},
+{id:"14.9",t:14,q:"La operación de mantenimiento que consiste en comprobar la estanquidad de circuitos de tuberías se realizará en instalaciones sólo de más de 70 kW:",o:["Una vez al mes.","Una vez por temporada.","Dos veces por temporada.","No debe hacerse nunca."],a:[1],ref:"IT 3.3, tabla 3.3 (15)",e:"Comprobación de estanquidad de circuitos de tuberías: t (una vez por temporada)."},
+{id:"14.10",t:14,q:"En instalaciones de potencia térmica nominal mayor que 70 kW, ¿cuál de los siguientes aspectos no debe hacer referencia a las instrucciones de manejo y maniobra?",o:["Secuencia de arranque de las bombas de circulación.","Recorrido hasta la salida de emergencia más cercana.","Limitación de puntas de potencia eléctrica.","Utilización del sistema de enfriamiento gratuito."],a:[1],ref:"IT 3.6.2",e:"Las instrucciones de manejo y maniobra tratan la secuencia de arranque de bombas, la limitación de puntas de potencia eléctrica y el enfriamiento gratuito. La salida de emergencia no está."},
+{id:"14.11",t:14,q:"La medida de la pérdida de presión en el evaporador en plantas enfriadas por agua en máquinas de 100 kW será:",o:["Una vez al mes.","Una vez cada tres meses.","Una vez al año.","No es necesario hacer esta operación."],a:[1],ref:"IT 3.4.2, tabla 3.3",e:"Generadores de frío de 70 a 1.000 kW: cada tres meses (3m)."},
+{id:"14.12",t:14,q:"En una instalación de 100 kW de potencia térmica instalada, ¿cada cuánto tiempo se realizará la medición de la temperatura y presión de condensación?",o:["Una vez a la semana.","Una vez al mes.","Una vez cada tres meses.","Una vez al año."],a:[2],ref:"IT 3.4.2, tabla 3.3",e:"Generadores de frío de 70 a 1.000 kW: cada tres meses (3m)."},
+{id:"14.13",t:14,q:"La periodicidad de la revisión del sistema de preparación de agua caliente sanitaria de potencias térmicas nominales mayores de 70 kW, será:",o:["Ninguna.","Cada seis meses.","Una vez al año.","Una vez al mes."],a:[3],ref:"IT 3.3, tabla 3.3 (28)",e:"Revisión del sistema de preparación de ACS: m (una vez al mes)."},
+{id:"14.14",t:14,q:"La revisión de los sistemas de tratamiento de agua en instalaciones de potencia térmica nominal menor de 70 kW será:",o:["Una vez al mes.","Una vez por temporada.","Dos veces por temporada.","Una vez al año."],a:[1],ref:"IT 3.3 (70 kW o menos)",e:"Hasta 70 kW: una vez por temporada, que es como lo dice el RITE (temporada = año). Más de 70 kW: m.",note:OLD70},
+{id:"14.15",t:14,q:"En torres de refrigeración de más de 70 kW de potencia térmica nominal instalada el drenaje, limpieza y tratamiento del circuito será:",o:["Una vez al mes.","Una vez por temporada.","Dos veces por temporada.","Una vez cada cuatro años."],a:[2],ref:"IT 3.3, tabla 3.3 (3)",e:"Drenaje, limpieza y tratamiento del circuito de torres: 2 t (dos veces por temporada)."},
+{id:"14.16",t:14,q:"La comprobación de niveles de aceite y refrigerante en instalaciones con equipos frigoríficos de más de 70 kW, será:",o:["Una vez al mes.","Una vez por temporada.","Dos veces por temporada.","Una vez cada dos años."],a:[0],ref:"IT 3.3, tabla 3.3 (4)",e:"Estanquidad y niveles de refrigerante y aceite: m (una vez al mes)."},
+{id:"14.17",t:14,q:"La comprobación del estado de almacenamiento del biocombustible sólido se realizará independientemente de la potencia dentro del Programa de Mantenimiento Preventivo:",o:["Nunca.","Una vez al mes.","Una vez al año.","Una vez a la semana."],a:[3],ref:"IT 3.3, tabla 3.3 (31)",e:"S*: una vez cada semana; la puede hacer el usuario asesorado por el mantenedor."},
+{id:"14.18",t:14,q:"¿De quién es responsabilidad en instalaciones de 10.000 kW la actualización y adecuación permanente del programa de mantenimiento preventivo?",o:["Del titular.","De la Comunidad Autónoma donde radique la sede social.","Del instalador autorizado.","Del Director de Mantenimiento."],a:[3],ref:"IT 3.3.2 y art. 26 c)",e:"Es de la empresa mantenedora o del director de mantenimiento cuando es obligatorio, y lo es a partir de 5.000 kW en calor (o 1.000 kW en frío). Con 10.000 kW, el director de mantenimiento."},
+{id:"14.19",t:14,q:"La revisión general de las calderas de gas se realizará conforme a la Instrucción Técnica de Mantenimiento con una periodicidad de:",o:["Una vez al mes.","Una vez por temporada.","Dos veces por temporada.","Una vez cada cuatro años."],a:[1],ref:"IT 3.3, tabla 3.3 (12)",e:"Revisión general de calderas de gas: t (una vez por temporada)."},
+{id:"14.20",t:14,q:"En cuanto a las instrucciones de funcionamiento de instalaciones que necesiten proyecto, ¿cuál de estos aspectos no será necesario contemplar?",o:["Teléfono actualizado de la empresa instaladora.","Horario de puesta en marcha y parada de la instalación.","Orden de puesta en marcha y parada de los equipos.","Programa de modificación del régimen de funcionamiento."],a:[0],ref:"IT 3.7",e:"El programa de funcionamiento recoge horario de marcha y parada, orden de marcha y parada de equipos, modificación del régimen, paradas intermedias y régimen de fines de semana. El teléfono del instalador no."},
+{id:"14.21",t:14,q:"¿Cada cuánto tiempo se realizará la comprobación y limpieza, si procede, del circuito de humos de calderas, conductos de humos y chimeneas en calderas de biomasa de potencia térmica nominal de 100 kW?",o:["Cada mes.","Cada dos meses.","Cada año.","Cada dos años."],a:[0],ref:"IT 3.3, tabla 3.3 (35)",e:"En calderas de biomasa, circuito de humos, conductos y chimeneas: m (una vez al mes)."},
+{id:"14.22",t:14,q:"La periodicidad en la revisión de baterías de intercambio térmico en instalaciones de potencia térmica instalada mayor de 70 kW será:",o:["Una vez a la semana.","Una vez al mes.","Una vez por temporada.","Dos veces por temporada."],a:[2],ref:"IT 3.3, tabla 3.3 (20)",e:"Revisión de baterías de intercambio térmico: t (una vez por temporada)."},
+{id:"14.23",t:14,q:"En un generador de calor de potencia térmica nominal instalada de 50 kW, la empresa mantenedora realizará la medición de la temperatura ambiente de la sala de máquinas cada:",o:["Mes.","Dos meses.","Año.","Dos años."],a:[3],ref:"IT 3.4.1, tabla 3.2",e:"Generadores de calor de 20 a 70 kW: cada dos años (2a)."},
+{id:"14.24",t:14,q:"La medida de la pérdida de presión en el condensador en plantas enfriadas por agua en máquinas de 100 kW será:",o:["Una vez al mes.","Una vez cada tres meses.","Una vez al año.","No es necesario hacer esta operación."],a:[1],ref:"IT 3.4.2, tabla 3.3",e:"Generadores de frío de 70 a 1.000 kW: cada tres meses (3m)."},
+{id:"14.25",t:14,q:"La revisión del estado del aislamiento térmico se realizará:",o:["Una vez por temporada.","Dos veces por temporada.","Cuando se realice una reparación.","Depende si es mayor de 70 kW."],a:[0],ref:"IT 3.3, tabla 3.3 (29)",e:"Revisión del estado del aislamiento térmico (sobre todo a la intemperie): t (una vez por temporada)."}
+];
+
+const TESTS = {
+  12: { code: "IT 2", name: "Test 12 · Montaje", sub: "Pruebas, ajuste y equilibrado" },
+  13: { code: "IT 3", name: "Test 13 · Mantenimiento", sub: "Periodicidades, seguridad, biomasa" },
+  14: { code: "IT 3", name: "Test 14 · Mantenimiento", sub: "Periodicidades, medidas, instrucciones" },
+};
+const L = ["a", "b", "c", "d"];
+const KEY = "rite-test-v1";
+
+// ---------- Progreso (solo en este navegador) ----------
+function load() {
+  try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; }
+}
+let P = load(); // { id: { ok: n, ko: n, streak: n, review: bool } }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(P)); } catch {} }
+function mark(id, right) {
+  const s = P[id] || { ok: 0, ko: 0, streak: 0, review: false };
+  if (right) { s.ok++; s.streak++; if (s.review && s.streak >= 2) s.review = false; }
+  else { s.ko++; s.streak = 0; s.review = true; }
+  P[id] = s; save();
+}
+const isRight = (q, i) => q.a.includes(i);
+const toReview = () => Q.filter(q => P[q.id]?.review);
+const mastered = q => P[q.id] && P[q.id].ok > 0 && !P[q.id].review;
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const app = document.getElementById("app");
+const homeBtn = document.getElementById("home-btn");
+homeBtn.addEventListener("click", () => { if (S && S.exam && !S.done && S.idx > 0) askLeave(); else home(); });
+const setTop = (sub) => { document.getElementById("subtitle").textContent = sub; };
+
+// ---------- Inicio ----------
+let S = null; // sesión en curso
+function home() {
+  S = null; homeBtn.hidden = true; setTop("IT 2 Montaje · IT 3 Mantenimiento");
+  const seen = Q.filter(q => P[q.id]).length;
+  const good = Q.filter(mastered).length;
+  const rev = toReview().length;
+  const row = (t) => {
+    const qs = Q.filter(q => q.t === t);
+    const g = qs.filter(mastered).length;
+    return `<button class="btn mode" data-t="${t}">
+      <span class="code">${TESTS[t].code}</span>
+      <span class="name">${TESTS[t].name}</span>
+      <span class="count">${g}/${qs.length}</span>
+      <span class="sub">${TESTS[t].sub}</span>
+    </button>`;
+  };
+  app.innerHTML = `
+    <section class="hero">
+      <span class="eyebrow">Examen del viernes</span>
+      <h2>Las 75 preguntas de los tests 12, 13 y 14, con la respuesta y su apartado del RITE</h2>
+      <p class="muted">Contesta y verás al momento si está bien y por qué. Lo que falles va a «Repasar fallos» hasta que lo aciertes dos veces seguidas.</p>
+    </section>
+    <section class="stats">
+      <div class="stat"><b>${good}<span class="muted" style="font-size:14px">/75</span></b><span>dominadas</span></div>
+      <div class="stat"><b>${seen}</b><span>contestadas</span></div>
+      <div class="stat"><b>${rev}</b><span>por repasar</span></div>
+    </section>
+    <div class="bar" aria-hidden="true"><i style="width:${(good / Q.length * 100).toFixed(1)}%"></i></div>
+    <section class="menu">
+      <div class="section-title"><span class="eyebrow">Practicar por test</span></div>
+      ${row(12)}${row(13)}${row(14)}
+    </section>
+    <section class="menu">
+      <div class="section-title"><span class="eyebrow">Repaso y examen</span></div>
+      <button class="btn mode" id="m-all"><span class="code">75</span><span class="name">Todas mezcladas</span><span class="count"></span><span class="sub">Las 75 en orden aleatorio, corrigiendo cada una</span></button>
+      <button class="btn mode" id="m-rev" ${rev ? "" : "disabled"}><span class="code">${rev}</span><span class="name">Repasar fallos</span><span class="count"></span><span class="sub">${rev ? "Solo las que has fallado" : "Aún no hay fallos que repasar"}</span></button>
+      <button class="btn mode" id="m-exam"><span class="code">25</span><span class="name">Simulacro</span><span class="count"></span><span class="sub">25 al azar sin ver la corrección hasta el final, con nota sobre 10</span></button>
+      <button class="btn mode" id="m-sheet"><span class="code">t·m</span><span class="name">Chuleta</span><span class="count"></span><span class="sub">Presiones de prueba y periodicidades de mantenimiento</span></button>
+    </section>
+    <section class="menu">
+      <button class="btn small ghost" id="m-reset" style="align-self:flex-start">Borrar mi progreso</button>
+      <div id="reset-box"></div>
+    </section>`;
+  app.querySelectorAll("[data-t]").forEach(b => b.addEventListener("click", () => start(Q.filter(q => q.t === +b.dataset.t), TESTS[b.dataset.t].name, false)));
+  document.getElementById("m-all").addEventListener("click", () => start(shuffle(Q), "Todas mezcladas", false));
+  document.getElementById("m-rev").addEventListener("click", () => start(shuffle(toReview()), "Repasar fallos", false));
+  document.getElementById("m-exam").addEventListener("click", () => start(shuffle(Q).slice(0, 25), "Simulacro", true));
+  document.getElementById("m-sheet").addEventListener("click", sheet);
+  document.getElementById("m-reset").addEventListener("click", () => {
+    document.getElementById("reset-box").innerHTML = `<div class="confirm"><p>Se borrarán los aciertos y los fallos guardados en este móvil u ordenador.</p>
+      <div class="nav"><button class="btn small" id="r-no">Cancelar</button><button class="btn small primary" id="r-yes">Borrar</button></div></div>`;
+    document.getElementById("r-no").onclick = home;
+    document.getElementById("r-yes").onclick = () => { P = {}; save(); home(); };
+  });
+  window.scrollTo(0, 0);
+}
+
+// ---------- Sesión de preguntas ----------
+function start(list, name, exam) {
+  S = { list, name, exam, idx: 0, answers: [], picked: null, done: false, right: 0 };
+  homeBtn.hidden = false; setTop(name);
+  question();
+}
+
+function question() {
+  const q = S.list[S.idx];
+  const n = S.list.length;
+  const answered = S.picked !== null;
+  const opts = q.o.map((txt, i) => {
+    let cls = "opt";
+    if (answered && !S.exam) {
+      if (isRight(q, i)) cls += " right";
+      else if (i === S.picked) cls += " wrong";
+    } else if (answered && S.exam && i === S.picked) cls += " sel";
+    return `<button class="${cls}" data-i="${i}" ${answered ? "disabled" : ""}><span class="l">${L[i]})</span><span>${esc(txt)}</span></button>`;
+  }).join("");
+  let feedback = "";
+  if (answered && !S.exam) {
+    const ok = isRight(q, S.picked);
+    feedback = `<div class="verdict ${ok ? "ok" : "ko"}">${ok ? "✓ Correcto" : "✗ No. La buena es la " + q.a.map(i => L[i] + ")").join(" o la ")}</div>
+      <div class="explain"><span class="ref">RITE ${esc(q.ref)}</span><p>${esc(q.e)}</p></div>
+      ${q.note ? `<div class="note"><b>Ojo:</b> ${esc(q.note)}</div>` : ""}`;
+  }
+  const last = S.idx === n - 1;
+  app.innerHTML = `
+    <div class="progress">
+      <div class="row"><span>${esc(S.name)}</span><span class="mono">${S.idx + 1} / ${n}</span></div>
+      <div class="bar"><i style="width:${(S.idx / n * 100).toFixed(1)}%;background:var(--accent)"></i></div>
+    </div>
+    <article class="qcard">
+      <div class="qhead"><span class="qnum">${q.id}</span><span class="eyebrow">${q.t === 12 ? "IT 2 · Montaje" : "IT 3 · Mantenimiento"}</span></div>
+      <p class="qtext">${esc(q.q)}</p>
+      <div class="opts">${opts}</div>
+      ${feedback}
+    </article>
+    <div class="nav">
+      ${answered ? `<button class="btn primary" id="next">${last ? (S.exam ? "Ver la nota" : "Terminar") : "Siguiente"}</button>` : `<p class="muted">Toca una respuesta.</p>`}
+    </div>`;
+  app.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => pick(+b.dataset.i)));
+  const next = document.getElementById("next");
+  if (next) { next.addEventListener("click", advance); next.focus({ preventScroll: true }); }
+}
+
+function pick(i) {
+  if (S.picked !== null) return;
+  const q = S.list[S.idx];
+  S.picked = i;
+  const ok = isRight(q, i);
+  if (ok) S.right++;
+  S.answers.push({ q, i, ok });
+  mark(q.id, ok);
+  question();
+  if (!S.exam) document.querySelector(".verdict")?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+}
+
+function advance() {
+  if (S.idx < S.list.length - 1) { S.idx++; S.picked = null; question(); window.scrollTo(0, 0); }
+  else result();
+}
+
+function askLeave() {
+  const box = document.createElement("div");
+  box.className = "confirm";
+  box.innerHTML = `<p>¿Dejar el simulacro? Lo contestado ya cuenta en tu progreso, pero no verás la nota.</p>
+    <div class="nav"><button class="btn small" id="l-no">Seguir</button><button class="btn small primary" id="l-yes">Salir</button></div>`;
+  app.prepend(box); window.scrollTo(0, 0);
+  box.querySelector("#l-no").onclick = () => box.remove();
+  box.querySelector("#l-yes").onclick = home;
+}
+
+function result() {
+  S.done = true;
+  const n = S.answers.length;
+  const fails = S.answers.filter(a => !a.ok);
+  const grade = (S.right / n * 10).toFixed(1).replace(".", ",");
+  app.innerHTML = `
+    <section class="hero">
+      <span class="eyebrow">${esc(S.name)} · resultado</span>
+      <div class="score">${S.exam ? grade : S.right + "/" + n}</div>
+      <p class="muted">${S.right} aciertos de ${n}${S.exam ? " · nota sobre 10" : ""}. ${fails.length ? "Las falladas ya están en «Repasar fallos»." : "Sin fallos."}</p>
+    </section>
+    ${fails.length ? `<section class="fails"><span class="eyebrow">Las que has fallado</span>${fails.map(f => `
+      <div class="fail">
+        <div class="qhead"><span class="qnum">${f.q.id}</span><span class="ref">RITE ${esc(f.q.ref)}</span></div>
+        <p><b>${esc(f.q.q)}</b></p>
+        <p class="ans">Pusiste <span class="ko">${L[f.i]}) ${esc(f.q.o[f.i])}</span></p>
+        <p class="ans">Correcta: <span class="ok">${f.q.a.map(i => L[i] + ") " + esc(f.q.o[i])).join(" / ")}</span></p>
+        <p class="muted" style="font-size:14px">${esc(f.q.e)}</p>
+        ${f.q.note ? `<div class="note"><b>Ojo:</b> ${esc(f.q.note)}</div>` : ""}
+      </div>`).join("")}</section>` : ""}
+    <div class="nav">
+      ${fails.length ? `<button class="btn" id="r-fails">Repetir las falladas</button>` : ""}
+      <button class="btn primary" id="r-home">Volver al inicio</button>
+    </div>`;
+  document.getElementById("r-home").addEventListener("click", home);
+  const rf = document.getElementById("r-fails");
+  if (rf) rf.addEventListener("click", () => start(shuffle(fails.map(f => f.q)), "Repetir falladas", false));
+  window.scrollTo(0, 0);
+}
+
+// ---------- Chuleta ----------
+function sheet() {
+  S = null; homeBtn.hidden = false; setTop("Chuleta");
+  const t33 = [
+    ["Limpieza de evaporadores y de condensadores", "t"],
+    ["Torres de refrigeración: drenaje, limpieza y tratamiento", "2t"],
+    ["Estanquidad y niveles de refrigerante y aceite", "m"],
+    ["Circuito de humos de calderas", "2t"],
+    ["Conductos de humos y chimenea", "2t"],
+    ["Limpieza del quemador", "m"],
+    ["Vaso de expansión", "m"],
+    ["Sistemas de tratamiento de agua", "m"],
+    ["Material refractario", "2t"],
+    ["Estanquidad de cierre quemador-caldera", "m"],
+    ["Revisión general de calderas de gas y de gasóleo", "t"],
+    ["Niveles de agua en circuitos", "m"],
+    ["Estanquidad de circuitos de tuberías", "t"],
+    ["Estanquidad de válvulas de interceptación", "2t"],
+    ["Tarado de elementos de seguridad", "m"],
+    ["Filtros de agua", "2t"],
+    ["Filtros de aire", "m"],
+    ["Baterías de intercambio térmico", "t"],
+    ["Humectación y enfriamiento evaporativo", "m"],
+    ["Recuperación de calor", "2t"],
+    ["Unidades terminales agua-aire y de distribución de aire", "2t"],
+    ["Unidades de impulsión y retorno de aire", "t"],
+    ["Equipos autónomos", "2t"],
+    ["Bombas y ventiladores", "m"],
+    ["Sistema de preparación de ACS", "m"],
+    ["Aislamiento térmico", "t"],
+    ["Control automático", "2t"],
+    ["Biomasa: almacenamiento del biocombustible", "S*"],
+    ["Biomasa: contenedor plegable", "2t"],
+    ["Biomasa: limpieza y retirada de cenizas", "m"],
+    ["Biomasa: control visual de la caldera", "S*"],
+    ["Biomasa: humos, conductos y chimeneas", "m"],
+    ["Biomasa: elementos de seguridad", "m"],
+  ];
+  app.innerHTML = `
+    <div class="sheet">
+      <section>
+        <h3>Pruebas de montaje (IT 2)</h3>
+        <div class="keyfacts">
+          <div class="fact"><b>×1,5 · mín. 6 bar</b><span>Agua refrigerada o caliente hasta 100 °C</span></div>
+          <div class="fact"><b>×2 · mín. 6 bar</b><span>Agua caliente sanitaria</span></div>
+          <div class="fact"><b>×1,5 · mín. 3 bar</b><span>Primario de energía solar</span></div>
+          <div class="fact"><b>pH &lt; 7,5</b><span>Repetir limpieza (redes cerradas por debajo de 100 °C)</span></div>
+          <div class="fact"><b>1 h · &gt; 80 %</b><span>Prueba solar en estancamiento, con la bomba parada</span></div>
+          <div class="fact"><b>Instaladora</b><span>Ajusta, equilibra y presenta el informe final de pruebas</span></div>
+        </div>
+      </section>
+      <section>
+        <h3>Mantenimiento de más de 70 kW (tabla 3.3)</h3>
+        <div class="legend" style="margin-bottom:10px">
+          <span class="chip">m = una vez al mes</span><span class="chip">t = una vez por temporada (año)</span>
+          <span class="chip">2t = dos por temporada</span><span class="chip">S* = cada semana (puede el usuario)</span>
+        </div>
+        <div class="tablebox"><table>
+          <thead><tr><th>Operación</th><th>Cada</th></tr></thead>
+          <tbody>${t33.map(r => `<tr><td>${r[0]}</td><td class="p">${r[1]}</td></tr>`).join("")}</tbody>
+        </table></div>
+        <p class="muted" style="font-size:14px;margin-top:8px">Hasta 70 kW, en el libro casi todo es «t» (una vez por temporada).</p>
+      </section>
+      <section>
+        <h3>Medidas de rendimiento (IT 3.4)</h3>
+        <div class="tablebox"><table>
+          <thead><tr><th>Generador</th><th>Potencia</th><th>Cada</th></tr></thead>
+          <tbody>
+            <tr><td>Calor</td><td>20 a 70 kW</td><td class="p">2 años</td></tr>
+            <tr><td>Calor</td><td>70 a 1.000 kW</td><td class="p">3 meses</td></tr>
+            <tr><td>Calor</td><td>más de 1.000 kW</td><td class="p">1 mes</td></tr>
+            <tr><td>Frío</td><td>70 a 1.000 kW</td><td class="p">3 meses</td></tr>
+            <tr><td>Frío</td><td>más de 1.000 kW</td><td class="p">1 mes</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+      <section>
+        <h3>Otras cifras</h3>
+        <div class="keyfacts">
+          <div class="fact"><b>5 años</b><span>Guardar el seguimiento del consumo (más de 70 kW)</span></div>
+          <div class="fact"><b>5.000 kW</b><span>Desde ahí hace falta director de mantenimiento (1.000 kW en frío)</span></div>
+          <div class="fact"><b>Mantenedora</b><span>Asesora al titular sobre eficiencia energética</span></div>
+          <div class="fact"><b>Usuarios y operarios</b><span>A quién protegen las instrucciones de seguridad</span></div>
+        </div>
+      </section>
+    </div>`;
+  window.scrollTo(0, 0);
+}
+
+home();
+
+// App instalable y sin conexión (solo en la web publicada; en otros sitios no hace nada)
+if ("serviceWorker" in navigator && location.protocol === "https:" && location.hostname.endsWith("github.io")) {
+  navigator.serviceWorker.register("sw.js").catch(() => {});
+}
+</script>
+
+</html>
